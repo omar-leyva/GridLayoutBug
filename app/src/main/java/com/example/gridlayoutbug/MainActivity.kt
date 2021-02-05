@@ -2,17 +2,13 @@ package com.example.gridlayoutbug
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.gridlayoutbug.databinding.ActivityMainBinding
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(), Listener {
 
     private lateinit var adapter1: Adapter1
-
-    private lateinit var adapter2: Adapter2
-
-    private lateinit var concatAdapter: ConcatAdapter
 
     private lateinit var binding: ActivityMainBinding
 
@@ -26,18 +22,12 @@ class MainActivity : AppCompatActivity(), Listener {
     private fun setupRecyclerView() {
         adapter1 = Adapter1()
         adapter1.listener = this
-        adapter2 = Adapter2()
-        concatAdapter = ConcatAdapter(
-            ConcatAdapter.Config.Builder().setIsolateViewTypes(false).build(),
-            adapter1,
-            adapter2,
-        )
-
-        binding.rv.adapter = concatAdapter
+        binding.rv.adapter = adapter1
         val gridLayoutManager = GridLayoutManager(this, 2)
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                return when (concatAdapter.getItemViewType(position)) {
+                val itemViewType = adapter1.getItemViewType(position)
+                return when (itemViewType) {
                     R.layout.layout_item1 -> 2
                     R.layout.layout_item2 -> 1
                     else -> 1
@@ -54,11 +44,7 @@ class MainActivity : AppCompatActivity(), Listener {
 
         adapter1.submitList(
             listOf(
-                Item1("1")
-            )
-        )
-        adapter2.submitList(
-            listOf(
+                Item1("0"),
                 Item2("1"),
                 Item2("2"),
                 Item2("3"),
@@ -73,7 +59,14 @@ class MainActivity : AppCompatActivity(), Listener {
     override fun onClick() {
         adapter1.submitList(
             listOf(
-                Item1("2")
+                Item1(Random.nextDouble().toString()),
+                Item2("1"),
+                Item2("2"),
+                Item2("3"),
+                Item2("4"),
+                Item2("5"),
+                Item2("6"),
+                Item2("7"),
             )
         )
     }

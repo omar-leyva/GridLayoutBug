@@ -3,7 +3,6 @@ package com.example.gridlayoutbug
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.GridLayoutManager2
 import com.example.gridlayoutbug.databinding.ActivityMainBinding
 import kotlin.random.Random
 
@@ -24,8 +23,8 @@ class MainActivity : AppCompatActivity(), Listener {
         adapter1 = Adapter1()
         adapter1.listener = this
         binding.rv.adapter = adapter1
-        val gridLayoutManager = GridLayoutManager2(this, 2)
-        gridLayoutManager.spanSizeLookup = object : GridLayoutManager2.SpanSizeLookup() {
+        val gridLayoutManager = GridLayoutManager(this, 2)
+        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 val itemViewType = adapter1.getItemViewType(position)
                 return when (itemViewType) {

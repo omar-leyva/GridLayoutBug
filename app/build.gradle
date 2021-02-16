@@ -17,6 +17,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    repositories {
+        maven { url 'https://androidx.dev/snapshots/builds/7137309/artifacts/repository' }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -47,6 +51,6 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    implementation 'androidx.recyclerview:recyclerview:1.2.0-beta01'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0-SNAPSHOT'
 
 }
